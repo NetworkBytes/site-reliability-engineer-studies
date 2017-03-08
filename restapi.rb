@@ -1,26 +1,14 @@
 require "rest_client"
-require "linkedin"
 
 
-#p RestClient.methods.sort
-#xml = RestClient.get 'http://example.com/resource'
+# p RestClient.methods.sort
+request = RestClient.get 'https://jsonplaceholder.typicode.com/posts/1'
 
-#search(options = {}, type = 'people') ⇒ LinkedIn::Mash
+response_hash = JSON.parse(request.body)
 
-LinkedIn.configure do |config|
-  config.token = '86cf6pgfyfvlzd'
-  config.secret = 'qLJJrnPWIQoxmtQu'
-  #config.default_profile_fields = ['educations', 'positions']
-end
-
-client = LinkedIn::Client.new
-#client = LinkedIn::Client.new('86cf6pgfyfvlzd', 'qLJJrnPWIQoxmtQu')
-
-request_token = client.request_token({}, :scope => "r_basicprofile")
-
-rtoken = request_token.token
-rsecret = request_token.secret
-
-client.authorize_from_access(rtoken, rsecret)
-
-p client.search("John Bencic")
+# ITERATE KEY VALUE HASH
+response_hash.each { |k,v|
+  puts "Key: %s\nValue: %s\n\n" % [k,v]
+}
+# OR TO GET ONE VLAUE FROM HASH
+puts response_hash["title"]

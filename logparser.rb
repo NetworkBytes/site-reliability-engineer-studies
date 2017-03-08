@@ -2,7 +2,7 @@ REGEX = /^(\d+.\d+.\d+.\d+) - - \[(.*)\]\s/
 
 
 base_dir=File.dirname(__FILE__)
-access_log="#{base_dir}/sample_logs/access_log"
+access_log="#{base_dir}/sample_files/access_log"
 
 def parse_log (log_file)
   File.open(log_file, "r") { |reader|
