@@ -3,9 +3,9 @@ class Basic
   def fizz_buzz (lower = 1, upper = 100)
 
     (lower..upper).each { |num|
-      if num % 5 == 0 and num % 10 == 0 then puts "FizzBuzz"
+      if num % 5 == 0 and num % 3 == 0 then puts "FizzBuzz"
       elsif num % 5 == 0 then puts "Fizz"
-      elsif num % 10 == 0 then puts "Buzz"
+      elsif num % 3 == 0 then puts "Buzz"
       else puts num
       end
     }
