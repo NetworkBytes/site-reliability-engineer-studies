@@ -48,13 +48,30 @@ Rest has a performance hit at the expense for scaliability
 - fewer connection to the db
 
 
+#### GeoDNS vs Anycast
+
+##### GeoDNS
+- GeoDNS resolves the same name to different IP addresses based on the requester's IP address.
+- GeoDNS uses a map of resource locations and performs logic to determine which of those resources is closest to a given requesting IP address, and then returns that IP address.
+- Suited for web applications scattered all over the world to make sure a given client will stick to a specific instance/region;
+
+##### AnyCast
+- To use anycast you advertise the same network in multiple spots of the Internet using BGP, and rely on shortest-path calculations to funnel clients to your multiple locations
+- An Anycasted DNS server will return the same IP address regardless of who is doing the asking.
+- Anycast doesnt know the users location 
+- BGP AnyCast works well for stateless protocols like DNS, where there is no connection or session persistence
+- generally not used for web servers since routing changes in the global BGP table mid-connection break TCP connections, break web application sessions, and generally cause havoc if anycast is used
+
+> [tcp over ip anycast](http://blog.catchpoint.com/2015/09/24/tcp-over-ip-anycast/)
+>- DNS assignment is based on the IP address of the user’s DNS resolver and not the user’s device. So, if a user in New York is using a California DNS resolver, they are assigned to our West Coast PoP instead of the East Coast PoP.
+>- The database used by DNS providers for converting an IP address to a location might not be completely accurate. Their country-level targeting is generally much better than their city-based targeting.
 
 
+
+# TODO
 -  Use Config Management tools – Cattle not Pets
 -  SSL offload to speed up web servers
 -  Create Rest APIs to backend services allows backend to be changed without recoding the front-end
-
-
 -  GEO DNS Route53 or GTM F5
 - Anycast
 -  refactor expensive db calls (use NewRelic etc)
