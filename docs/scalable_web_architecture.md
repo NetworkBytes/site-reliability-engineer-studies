@@ -67,8 +67,12 @@ Rest has a performance hit at the expense for scaliability
 
 
 ### OAuth vs SAML
+Authentication = proving who you are
+Authorisation = OAuth is about authorisation ie. to grant access to functionality/data/etc.. without having to deal with the original authentication
 
+A service or application does not authenticate to your web site -- at least not typic
 #### OAuth 2.0
+- OAuth is about authorisation
 
 #### SAML
 
