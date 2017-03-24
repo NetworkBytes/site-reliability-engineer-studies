@@ -11,6 +11,24 @@ you will want to analyse:
 There are many approaches, this next step attempts to compare the various pros and cons for the different approcahes
 
 
+### GeoDNS vs Anycast
+
+#### GeoDNS
+- GeoDNS resolves the same name to different IP addresses based on the requester's IP address.
+- GeoDNS uses a map of resource locations and performs logic to determine which of those resources is closest to a given requesting IP address, and then returns that IP address.
+- Suited for web applications scattered all over the world to make sure a given client will stick to a specific instance/region;
+
+#### AnyCast
+- To use anycast you advertise the same network in multiple spots of the Internet using BGP, and rely on shortest-path calculations to funnel clients to your multiple locations
+- An Anycasted DNS server will return the same IP address regardless of who is doing the asking.
+- Anycast doesnt know the users location 
+- BGP AnyCast works well for stateless protocols like DNS, where there is no connection or session persistence
+- generally not used for web servers since routing changes in the global BGP table mid-connection break TCP connections, break web application sessions, and generally cause havoc if anycast is used
+
+> [tcp over ip anycast](http://blog.catchpoint.com/2015/09/24/tcp-over-ip-anycast/)
+>- DNS assignment is based on the IP address of the user’s DNS resolver and not the user’s device. So, if a user in New York is using a California DNS resolver, they are assigned to our West Coast PoP instead of the East Coast PoP.
+>- The database used by DNS providers for converting an IP address to a location might not be completely accurate. Their country-level targeting is generally much better than their city-based targeting.
+
 ### Message Queue vs RestAPI/Web Service
 Message Queues have a lot more features, 
 Webservices: if you want to handle error conditions yourself or leave them to the message queue.
@@ -31,40 +49,30 @@ Webservices: if you want to handle error conditions yourself or leave them to th
 - You don't expect an immediate synchronous response, but you can implement/simulate synchronous calls.
 
 
-#### RestAPI vs Database Calls
+### RestAPI vs Database Calls
 The question of whether to add a RestAPI layer infornt of a database tier or allow your clients to make database calls
 Rest has a performance hit at the expense for scaliability
 
 
-##### RestAPI
+#### RestAPI
 - can add a caching layer to speed up the calls
 - allows for multiple clients (Web, Mobile, desktop etc) calls all get centralised, 
 - security both with access to the API and limiting raw database access
 - versioned, changing the backend database schema doesnt require to recode the client application (just the RestAPI)
 - Scales greater than direct database calls
 
-##### Database
+#### Database
 - Rest has a performance hit on the call however makes up for it in being more scaliability
 - fewer connection to the db
 
 
-#### GeoDNS vs Anycast
+### OAuth vs SAML
 
-##### GeoDNS
-- GeoDNS resolves the same name to different IP addresses based on the requester's IP address.
-- GeoDNS uses a map of resource locations and performs logic to determine which of those resources is closest to a given requesting IP address, and then returns that IP address.
-- Suited for web applications scattered all over the world to make sure a given client will stick to a specific instance/region;
+#### OAuth 2.0
 
-##### AnyCast
-- To use anycast you advertise the same network in multiple spots of the Internet using BGP, and rely on shortest-path calculations to funnel clients to your multiple locations
-- An Anycasted DNS server will return the same IP address regardless of who is doing the asking.
-- Anycast doesnt know the users location 
-- BGP AnyCast works well for stateless protocols like DNS, where there is no connection or session persistence
-- generally not used for web servers since routing changes in the global BGP table mid-connection break TCP connections, break web application sessions, and generally cause havoc if anycast is used
+#### SAML
 
-> [tcp over ip anycast](http://blog.catchpoint.com/2015/09/24/tcp-over-ip-anycast/)
->- DNS assignment is based on the IP address of the user’s DNS resolver and not the user’s device. So, if a user in New York is using a California DNS resolver, they are assigned to our West Coast PoP instead of the East Coast PoP.
->- The database used by DNS providers for converting an IP address to a location might not be completely accurate. Their country-level targeting is generally much better than their city-based targeting.
+
 
 
 
@@ -72,8 +80,7 @@ Rest has a performance hit at the expense for scaliability
 -  Use Config Management tools – Cattle not Pets
 -  SSL offload to speed up web servers
 -  Create Rest APIs to backend services allows backend to be changed without recoding the front-end
--  GEO DNS Route53 or GTM F5
-- Anycast
+
 -  refactor expensive db calls (use NewRelic etc)
 - implement a service model
 - Swagger or RAML API’s and API gateways (horizontally scaled) creating a common 
