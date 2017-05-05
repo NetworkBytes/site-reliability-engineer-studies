@@ -2,7 +2,7 @@
 time    = Time.now.strftime("%Y_%m_%d.log")
 tempdir = ENV["TMPDIR"]
 $log_file = File.path("#{tempdir}logfile__#{time}.log")
-
+puts "Log file: #{$log_file}"
 
 # CUSTOM LOGGER
 def logit (content)
