@@ -26,7 +26,7 @@ print s[e]
 'extra' not in s  # False
 
 # remove by position
-del s[5]
+del s[3]
 
 # remove by value
 s.remove('extra')
@@ -38,4 +38,8 @@ sorted(s)            # builtin function returns a new sorted list
 
 
 
+# List comprehension
+# [ expr(item) for item in iterable ]
+
+print [len(item) for item in s]
 

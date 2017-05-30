@@ -40,3 +40,14 @@ del d['key1']
 
 # add element to dict 
 d['key6'] = 'value6'
+
+
+# Dict comprehension
+# { key_expr:value_expr for item in iterable }
+# sample reverse's value to key from a dict 
+print { val: key for key, val in d.items() }
+
+import os
+import glob
+file_sizes = { os.path.realpath(p): os.stat(p).st_size for p in glob.glob('*.py') }
+print file_sizes
