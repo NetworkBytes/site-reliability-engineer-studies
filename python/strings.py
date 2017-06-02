@@ -31,8 +31,13 @@ pos = (12.3, 23.6, 9.2)
 "I am a string".split('a')
 
 # Slice 
-'slice'[start:end:increment]
+#'slice'[start:end:increment]
 '0123456789'[1:6:2]  # prints 135
 'slice'[1]     # prints 'l'
+'slice'[:2]    # prints sl
 'slice'[1:]    # prints 'lice'
 'slice'[1:2]   # prints 'li', start, end
+
+# find in string
+# str.find(str, beg=0, end=len(string))
+'string'.find('r')
