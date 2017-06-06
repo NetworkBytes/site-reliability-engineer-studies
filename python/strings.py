@@ -41,3 +41,9 @@ pos = (12.3, 23.6, 9.2)
 # find in string
 # str.find(str, beg=0, end=len(string))
 'string'.find('r')
+
+
+# RegEx replace
+import re
+# re.sub(regex_search,regex_replace,contents)
+print re.sub('a+','b',"aaaaaabcdefg")
