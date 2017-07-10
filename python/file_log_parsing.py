@@ -26,7 +26,7 @@ print { k: v for k, v in client_hits.items() }
 # Count occurrences
 hash = {}
 for i in list("12323534523234213423122355"):
-  if hash.has_key(i):
+  if i in hash:
     hash[i] = hash[i] + 1
   else:
     hash[i] = 1
