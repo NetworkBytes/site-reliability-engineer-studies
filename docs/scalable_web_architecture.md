@@ -128,7 +128,50 @@ How to debug a problem in a network.
 -  Arp
 -  Route
  
- 
+
+PROCESS STATE CODES
+-	D uninterruptible sleep (usually IO)
+-	R running or runnable (on run queue)
+-	S interruptible sleep (waiting for an event to complete)
+-	T stopped, either by a job control signal or because it is being traced.
+-	W paging (not valid since the 2.6.xx kernel)
+-	X dead (should never be seen)
+-	Z defunct ("zombie") process, terminated but not reaped by its parent.
+
+Measure latency between hosts
+-	Use iperf
+
+
+
+Uptime
+-	To get cpu load 
+-	Load of 1 means one process waiting or using CPU 
+-	Multiplied by the number of cpus, load of 3 on a 4 proc cpu is ok
+
+Linux kernel 
+-	User mode and 
+-	Uses system calls to interface with the kernel
+Kernel mode
+-	Processor scheduling 
+-	IPC subsystem
+-	Memory management 
+-	Virtual filesystem
+-	Network subsystem
+
+ popular system calls 
+ - open,  a program initializes access to a file in a file system using the open system call. This allocates resources associated to the file (the file descriptor), and returns a handle that the process will use to refer to that file.
+ read, a program that needs to access data from a file stored in a file system uses the read system call. The file is identified by a file descriptor that is normally obtained from a previous call to open
+ write, It writes data from a buffer declared by the user to a given device, maybe a file.
+ close,  program terminates access to a file in a filesystem using the close system call. This flushes buffers, updates file metadata, de-allocates resources associated with the file
+ wait, a parent process can create an independently executing child process. The parent process may then issue a wait system call, which suspends the execution of the parent process while the child executes.
+ exec, exec is a functionality of an operating system that runs an executable file in the context of an already existing process, replacing the previous executable.
+ fork, fork is an operation whereby a process creates a copy of itself
+ exit, a computer process terminates its execution by making an exit system call.
+ kill, send signals to running processes in order to request the termination of the process
+
+
+
+
 Fork vs Exec
 -  a process had two parts read only memory (application code “Text”), read write (“Data”)
 -  Fork clones the read-write, mark it as Copy-On-Write (COW) and clone if changed
